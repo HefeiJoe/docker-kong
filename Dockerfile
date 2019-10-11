@@ -12,7 +12,6 @@ RUN adduser -Su 1337 kong \
 	&& echo "$KONG_SHA256 *kong.tar.gz" | sha256sum -c - \
 	&& tar -xzf kong.tar.gz -C /tmp \
 	&& rm -f kong.tar.gz \
-	&& cp prometheus-server.conf /tmp \
 	&& git clone https://github.com/HefeiJoe/kong-plugin-prometheus.git /tmp/kong-plugin-prometheus \
 	&& luarocks make /tmp/kong-plugin-prometheus/*.rockspec \
 	&& rm -rf /tmp/kong-plugin-prometheus \
@@ -24,6 +23,7 @@ RUN adduser -Su 1337 kong \
 	&& chown -R kong:0 /usr/local/kong \
 	&& chmod -R g=u /usr/local/kong
 COPY docker-entrypoint.sh /docker-entrypoint.sh
+COPY prometheus-server.conf /tmp/prometheus-server.conf
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
