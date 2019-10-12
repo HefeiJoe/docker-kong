@@ -8,7 +8,7 @@ ENV KONG_PLUGINS=bundled,prometheus-adv
 
 RUN adduser -Su 1337 kong \
         && mkdir -p "/usr/local/kong" \
-        && apk add --no-cache --virtual .build-deps wget tar ca-certificates git \
+        && apk add --no-cache --virtual .build-deps wget tar ca-certificates \
         && apk add --no-cache libgcc openssl pcre perl tzdata curl libcap su-exec zip luarocks \
         && wget -O kong.tar.gz "https://bintray.com/kong/kong-alpine-tar/download_file?file_path=kong-$KONG_VERSION.apk.tar.gz" \
         && echo "$KONG_SHA256 *kong.tar.gz" | sha256sum -c - \
