@@ -1,14 +1,14 @@
 FROM alpine:3.10
 LABEL maintainer="Kong Core Team <team-core@konghq.com>"
 
-ENV KONG_VERSION 1.4.0rc1
-ENV KONG_SHA256 5ed8530c9f0a3631c900e59ac517f8cf2ca3ab11e283f988e070ef1a1ef95b2f
+ENV KONG_VERSION 1.2.2
+ENV KONG_SHA256 76183d7e8ff084c86767b917da441001d0d779d35fa2464275b74226029a46bf
 
 RUN adduser -Su 1337 kong \
 	&& mkdir -p "/usr/local/kong" \
 	&& apk add --no-cache --virtual .build-deps wget tar ca-certificates git \
-	&& apk add --no-cache libgcc openssl pcre perl tzdata curl libcap su-exec zip luarocks \
-	&& wget -O kong.tar.gz "https://bintray.com/kong/kong-alpine-tar/download_file?file_path=kong-$KONG_VERSION.amd64.apk.tar.gz" \
+	&& apk add --no-cache libgcc openssl pcre perl tzdata curl libcap su-exec zip gcc libc-dev g++ util-linux luarocks \
+	&& wget -O kong.tar.gz "https://bintray.com/kong/kong-alpine-tar/download_file?file_path=kong-$KONG_VERSION.apk.tar.gz" \
 	&& echo "$KONG_SHA256 *kong.tar.gz" | sha256sum -c - \
 	&& tar -xzf kong.tar.gz -C /tmp \
 	&& rm -f kong.tar.gz \
@@ -22,6 +22,7 @@ RUN adduser -Su 1337 kong \
 	&& apk del .build-deps \
 	&& chown -R kong:0 /usr/local/kong \
 	&& chmod -R g=u /usr/local/kong
+
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 COPY prometheus-server.conf /tmp/prometheus-server.conf
 
