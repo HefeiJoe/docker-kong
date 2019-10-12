@@ -24,7 +24,9 @@ RUN adduser -Su 1337 kong \
 COPY prometheus-server.conf /tmp/prometheus-server.conf
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 
-ENTRYPOINT ["/docker-entrypoint.sh"]
+RUN chmod +x docker-entrypoint.sh
+
+ENTRYPOINT ["sh", "/docker-entrypoint.sh"]
 
 EXPOSE 8000 8443 8001 8444
 
