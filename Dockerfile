@@ -33,8 +33,9 @@ EXPOSE 8000 8443 8001 8444
 STOPSIGNAL SIGQUIT
 
 CMD ["kong", "docker-start"]
-CMD ["luarocks make /tmp/kong-plugin-prometheus/*.rockspec"]
-CMD ["export KONG_NGINX_HTTP_INCLUDE=/tmp/prometheus-server.conf"]
-CMD ["export KONG_PLUGINS=bundled,prometheus-adv"]
-CMD ["rm -rf /tmp/kong-plugin-prometheus"]
-CMD ["kong reload"]
+
+RUN luarocks make /tmp/kong-plugin-prometheus/*.rockspec \
+	&& export KONG_NGINX_HTTP_INCLUDE=/tmp/prometheus-server.conf \
+	&& export KONG_PLUGINS=bundled,prometheus-adv \
+	&& rm -rf /tmp/kong-plugin-prometheus \
+	&& kong reload
