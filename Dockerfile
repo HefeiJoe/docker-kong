@@ -13,8 +13,8 @@ RUN adduser -Su 1337 kong \
 	&& tar -xzf kong.tar.gz -C /tmp \
 	&& rm -f kong.tar.gz \
 	&& git clone https://github.com/HefeiJoe/kong-plugin-prometheus.git /tmp/kong-plugin-prometheus \
-	&& luarocks make /tmp/kong-plugin-prometheus/*.rockspec \
-	&& rm -rf /tmp/kong-plugin-prometheus \
+	#&& luarocks make /tmp/kong-plugin-prometheus/*.rockspec \
+	#&& rm -rf /tmp/kong-plugin-prometheus \
 	&& cp -R /tmp/usr / \
 	&& rm -rf /tmp/usr \
 	&& cp -R /tmp/etc / \

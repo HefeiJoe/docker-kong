@@ -2,8 +2,6 @@
 set -e
 
 export KONG_NGINX_DAEMON=off
-export KONG_PLUGINS=bundled,prometheus-adv
-export KONG_NGINX_HTTP_INCLUDE="/tmp/prometheus-server.conf"
 
 has_transparent() {
   echo "$1" | grep -E "[^\s,]+\s+transparent\b" >/dev/null
