@@ -3,7 +3,6 @@ LABEL maintainer="Kong Core Team <team-core@konghq.com>"
 
 ENV KONG_VERSION 1.2.2
 ENV KONG_SHA256 76183d7e8ff084c86767b917da441001d0d779d35fa2464275b74226029a46bf
-ENV KONG_NGINX_HTTP_INCLUDE=/tmp/prometheus-server.conf
 ENV KONG_PLUGINS=bundled,prometheus-adv
 
 RUN adduser -Su 1337 kong \
@@ -22,7 +21,7 @@ RUN adduser -Su 1337 kong \
         && chown -R kong:0 /usr/local/kong \
         && chmod -R g=u /usr/local/kong
 
-COPY prometheus-server.conf /tmp/prometheus-server.conf
+COPY prometheus-server.conf /usr/local/kong/prometheus-server.conf
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 
 RUN chmod +x docker-entrypoint.sh
@@ -38,4 +37,5 @@ CMD ["kong", "docker-start"]
 RUN apk add --no-cache git \
         && git clone https://github.com/HefeiJoe/kong-plugin-prometheus.git /tmp/kong-plugin-prometheus \
         && cd /tmp/kong-plugin-prometheus/ \
-        && luarocks make *.rockspec
+        && luarocks make *.rockspec \
+        && rm -rf /tmp/kong-plugin-prometheus/
