@@ -22,7 +22,7 @@ RUN adduser -Su 1337 kong \
 	&& chown -R kong:0 /usr/local/kong \
 	&& chmod -R g=u /usr/local/kong
 
-COPY prometheus-server.conf /usr/local/kong/ensaas-apim-server.conf
+COPY ensaas-apim-server.conf /usr/local/kong/ensaas-apim-server.conf
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 
 RUN chmod +x docker-entrypoint.sh
