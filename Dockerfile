@@ -1,9 +1,9 @@
 FROM alpine:3.10
-LABEL maintainer="Kong Core Team <team-core@konghq.com>"
+LABEL maintainer="Advantech Team"
 
 ENV KONG_VERSION 1.4.0
 ENV KONG_SHA256 e31080487cfb8262a839c19d5e8fdb18b7686e9e4cc594803eaa565e0b34ff7a
-ENV KONG_PLUGINS=bundled,prometheus-adv
+ENV KONG_PLUGINS=bundled,ensaas-apim
 
 
 RUN adduser -Su 1337 kong \
@@ -22,7 +22,7 @@ RUN adduser -Su 1337 kong \
 	&& chown -R kong:0 /usr/local/kong \
 	&& chmod -R g=u /usr/local/kong
 
-COPY prometheus-server.conf /usr/local/kong/prometheus-server.conf
+COPY prometheus-server.conf /usr/local/kong/ensaas-apim-server.conf
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 
 RUN chmod +x docker-entrypoint.sh
