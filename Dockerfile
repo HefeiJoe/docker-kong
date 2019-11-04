@@ -36,7 +36,7 @@ STOPSIGNAL SIGQUIT
 CMD ["kong", "docker-start"]
 
 RUN apk add --no-cache git \
-        && git clone https://github.com/HefeiJoe/kong-plugin-prometheus.git /tmp/kong-plugin-prometheus \
-        && cd /tmp/kong-plugin-prometheus/ \
+        && git clone https://github.com/HefeiJoe/kong-plugin-prometheus.git /tmp/kong-plugin-ensaas-apim \
+        && cd /tmp/kong-plugin-ensaas-apim/ \
         && luarocks make *.rockspec \
-        && rm -rf /tmp/kong-plugin-prometheus/
+        && rm -rf /tmp/kong-plugin-ensaas-apim/
