@@ -1,8 +1,8 @@
 FROM alpine:3.10
-LABEL maintainer="Advantech Team"
+LABEL maintainer="Kong Core Team <team-core@konghq.com>"
 
 ENV KONG_VERSION 1.3.0
-ENV KONG_SHA256 76183d7e8ff084c86767b917da441001d0d779d35fa2464275b74226029a46bf
+ENV KONG_SHA256 566f2a8009cbd7eebd32843c2f03c8d5f736139110988dc12dee161046428112
 ENV KONG_PLUGINS=bundled,ensaas-apim
 
 RUN adduser -Su 1337 kong \
@@ -21,8 +21,8 @@ RUN adduser -Su 1337 kong \
 	&& chown -R kong:0 /usr/local/kong \
 	&& chmod -R g=u /usr/local/kong
 
-COPY ensaas-apim-server.conf /usr/local/kong/ensaas-apim-server.conf
 COPY docker-entrypoint.sh /docker-entrypoint.sh
+COPY ensaas-apim-server.conf /usr/local/kong/ensaas-apim-server.conf
 
 RUN chmod +x docker-entrypoint.sh
 
