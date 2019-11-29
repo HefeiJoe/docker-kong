@@ -1,0 +1,16 @@
+{{- if .Values.kongServiceMonitor.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    release: {{ .Values.kongServiceMonitor.additionalLabels }}
+  name: "{{ .Values.exporter.name }}"
+  namespace: {{ .Release.Namespace }} 
+spec:
+  endpoints:
+  - port: {{ .Values.kongServiceMonitor.metrics }}
+  jobLabel: jobLabel
+  selector:
+    matchLabels:
+      app: "{{ .Values.exporter.name }}"
+{{- end }}

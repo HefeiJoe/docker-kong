@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: "{{ .Values.exporter.name }}"
+  labels:
+    app: "{{ .Values.exporter.name }}"
+spec:
+  ports:
+  - name: {{ .Values.kongServiceMonitor.metrics }}
+    port: {{ .Values.exporter.port }}
+    protocol: TCP
+  selector:
+    app: "{{ .Values.exporter.name }}"
